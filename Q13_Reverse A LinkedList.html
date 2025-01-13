@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class ListNode {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        function reverseLinkedList(head) {
+            let prev = null; // Previous node
+            let current = head; // Current node
+
+            while (current !== null) {
+                const next = current.next; // Store the next node
+                current.next = prev; // Reverse the current node's pointer
+                prev = current; // Move prev to the current node
+                current = next; // Move to the next node
+            }
+
+            return prev; // New head of the reversed LinkedList
+        }
+
+        // Helper function to print a LinkedList
+        function printLinkedList(head) {
+            let current = head;
+            const result = [];
+            while (current !== null) {
+                result.push(current.value);
+                current = current.next;
+            }
+            console.log(result.join(" -> "));
+        }
+
+        // Example usage:
+        // Create a LinkedList: 1 -> 2 -> 3 -> 4 -> 5
+        let head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+
+        console.log("Original LinkedList:");
+        printLinkedList(head);
+
+        // Reverse the LinkedList
+        const reversedHead = reverseLinkedList(head);
+
+        console.log("Reversed LinkedList:");
+        printLinkedList(reversedHead);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function groupAnagrams(strs) {
+            const map = new Map();
+
+            for (let str of strs) {
+                // Sort the string to use as a key
+                const sortedStr = str.split('').sort().join('');
+                if (!map.has(sortedStr)) {
+                    map.set(sortedStr, []);
+                }
+                map.get(sortedStr).push(str);
+            }
+
+            return Array.from(map.values());
+        }
+
+        // Example usage:
+        const strs = ["eat", "tea", "tan", "ate", "nat", "bat"];
+        console.log(groupAnagrams(strs));
+        // Output: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+
+    </script>
+</body>
+
+</html>

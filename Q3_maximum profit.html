@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function maxProfit(prices) {
+            if (!prices || prices.length < 2) {
+                return 0;
+            }
+
+            let minPrice = prices[0]; // Minimum price encountered so far
+            let maxProfit = 0;        // Maximum profit possible
+
+            for (let i = 1; i < prices.length; i++) {
+                // Update the minimum price if the current price is lower
+                if (prices[i] < minPrice) {
+                    minPrice = prices[i];
+                } else {
+                    // Calculate the profit if sold at current price
+                    const profit = prices[i] - minPrice;
+                    // Update the maximum profit
+                    maxProfit = Math.max(maxProfit, profit);
+                }
+            }
+
+            return maxProfit;
+        }
+
+        // Example usage:
+        const prices = [7, 1, 5, 3, 6, 4];
+        console.log(maxProfit(prices)); // Output: 5
+
+    </script>
+</body>
+
+</html>

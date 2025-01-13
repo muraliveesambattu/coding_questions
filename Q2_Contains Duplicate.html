@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function hasDuplicate(nums) {
+            // Create a set to store unique numbers
+            const numSet = new Set();
+
+            // Iterate through the array
+            for (const num of nums) {
+                // Check if the number is already in the set
+                if (numSet.has(num)) {
+                    return true; // Duplicate found
+                }
+
+                // Add the number to the set
+                numSet.add(num);
+            }
+
+            // Return false if no duplicates are found
+            return false;
+        }
+
+        // Example usage:
+        const nums = [1, 2, 3, 4, 5, 1];
+        const result = hasDuplicate(nums);
+        console.log(result); // Output: true
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function longestSubstringWithReplacement(s, k) {
+            let maxLength = 0;
+            let maxRepeatingCharCount = 0;
+            let windowStart = 0;
+            const charFrequency = {};
+
+            for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+                const charEnd = s[windowEnd];
+
+                // Increment the frequency of the current character
+                charFrequency[charEnd] = (charFrequency[charEnd] || 0) + 1;
+
+                // Track the count of the most frequently occurring character in the current window
+                maxRepeatingCharCount = Math.max(maxRepeatingCharCount, charFrequency[charEnd]);
+
+                // If the current window size minus the count of the most frequent character is greater than k,
+                // shrink the window from the start
+                if (windowEnd - windowStart + 1 - maxRepeatingCharCount > k) {
+                    const charStart = s[windowStart];
+                    charFrequency[charStart]--;
+                    windowStart++;
+                }
+
+                // Update the maximum length of the substring
+                maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+            }
+
+            return maxLength;
+        }
+
+        // Example usage:
+        console.log(longestSubstringWithReplacement("aabccbb", 2)); // Output: 5 ("bbbbb")
+        console.log(longestSubstringWithReplacement("abbcb", 1));   // Output: 4 ("bbbb")
+        console.log(longestSubstringWithReplacement("abccde", 1));  // Output: 3 ("ccc")
+
+    </script>
+</body>
+
+</html>

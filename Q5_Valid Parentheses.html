@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function isValid(s) {
+            const stack = [];
+            const map = {
+                ')': '(',
+                '}': '{',
+                ']': '['
+            };
+
+            for (let char of s) {
+                if (char in map) {
+                    // Check the top of the stack
+                    const topElement = stack.length ? stack.pop() : null;
+                    if (topElement !== map[char]) {
+                        return false;
+                    }
+                } else {
+                    // Push opening brackets to the stack
+                    stack.push(char);
+                }
+            }
+
+            // If the stack is empty, all brackets are matched
+            return stack.length === 0;
+        }
+
+        // Example usage:
+        console.log(isValid("()")); // Output: true
+        console.log(isValid("()[]{}")); // Output: true
+        console.log(isValid("(]")); // Output: false
+        console.log(isValid("([)]")); // Output: false
+        console.log(isValid("{[]}")); // Output: true
+
+    </script>
+</body>
+
+</html>

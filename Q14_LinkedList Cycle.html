@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class ListNode {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+function hasCycle(head) {
+    if (!head || !head.next) return false; // If the list is empty or has only one node, it can't have a cycle
+
+    let slow = head; // Slow pointer moves one step at a time
+    let fast = head; // Fast pointer moves two steps at a time
+
+    while (fast && fast.next) {
+        slow = slow.next; // Move slow by one step
+        fast = fast.next.next; // Move fast by two steps
+
+        if (slow === fast) {
+            return true; // A cycle is detected
+        }
+    }
+
+    return false; // If the loop ends, there is no cycle
+}
+
+// Example usage:
+// Create a LinkedList: 1 -> 2 -> 3 -> 4 -> 5 -> 3 (cycle back to 3)
+let head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = new ListNode(4);
+head.next.next.next.next = new ListNode(5);
+
+// Create a cycle
+head.next.next.next.next.next = head.next.next;
+
+console.log(hasCycle(head)); // Output: true
+
+// Create a LinkedList without a cycle: 1 -> 2 -> 3 -> 4 -> 5
+let head2 = new ListNode(1);
+head2.next = new ListNode(2);
+head2.next.next = new ListNode(3);
+head2.next.next.next = new ListNode(4);
+head2.next.next.next.next = new ListNode(5);
+
+console.log(hasCycle(head2)); // Output: false
+
+    </script>
+</body>
+</html>

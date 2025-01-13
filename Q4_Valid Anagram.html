@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function isAnagram(s, t) {
+            // If the lengths are different, they can't be anagrams
+            if (s.length !== t.length) {
+                return false;
+            }
+
+            // Create a frequency map for characters in `s`
+            const charCount = {};
+
+            // Count characters in `s`
+            for (let char of s) {
+                charCount[char] = (charCount[char] || 0) + 1;
+            }
+
+            // Check characters in `t` against the frequency map
+            for (let char of t) {
+                if (!charCount[char]) {
+                    return false; // If char is not in `s` or is used up
+                }
+                charCount[char]--; // Decrement the count
+            }
+
+            return true;
+        }
+
+        // Example usage:
+        const s = "anagram";
+        const t = "nagaram";
+        console.log(isAnagram(s, t)); // Output: true
+
+        const s2 = "rat";
+        const t2 = "car";
+        console.log(isAnagram(s2, t2)); // Output: false
+
+    </script>
+</body>
+
+</html>
