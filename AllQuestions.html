@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Peak Element
+    Find the minimum and maximum element in an array
+    Write a program to reverse the array
+    Write a program to sort the given array
+    Find the Kth largest and Kth smallest number in an array
+    Find the occurrence of an integer in the array
+    Sort the array of 0s, 1s, and 2s
+    Subarray with given sum
+    Move all the negative elements to one side of the array
+    Find the Union and Intersection of the two sorted arrays
+
+    <script>
+        // 1. Peak Element
+        function findPeak(arr) {
+            for (let i = 1; i < arr.length - 1; i++) {
+                if (arr[i] > arr[i - 1] && arr[i] > arr[i + 1]) {
+                    return arr[i];
+                }
+            }
+            return -1; // No peak found
+        }
+        console.log(findPeak([1, 3, 20, 4, 1])); // Output: 20
+
+        // 2. Find the minimum and maximum element in an array
+        function findMinMax(arr) {
+            return {
+                min: Math.min(...arr),
+                max: Math.max(...arr),
+            };
+        }
+        console.log(findMinMax([1, 3, 20, 4, 1])); // Output: { min: 1, max: 20 }
+
+        // 3. Write a program to reverse the array
+        function reverseArray(arr) {
+            return arr.reverse();
+        }
+        console.log(reverseArray([1, 2, 3, 4, 5])); // Output: [5, 4, 3, 2, 1]
+
+        // 4. Write a program to sort the given array
+        function sortArray(arr) {
+            return arr.sort((a, b) => a - b);
+        }
+        console.log(sortArray([3, 1, 4, 1, 5])); // Output: [1, 1, 3, 4, 5]
+
+        // 5. Find the Kth largest and Kth smallest number in an array
+        function findKthLargestAndSmallest(arr, k) {
+            arr.sort((a, b) => a - b);
+            return {
+                kthSmallest: arr[k - 1],
+                kthLargest: arr[arr.length - k],
+            };
+        }
+        console.log(findKthLargestAndSmallest([7, 10, 4, 3, 20, 15], 3));
+        // Output: { kthSmallest: 7, kthLargest: 10 }
+
+        // 6. Find the occurrence of an integer in the array
+        function countOccurrence(arr, num) {
+            return arr.filter(x => x === num).length;
+        }
+        console.log(countOccurrence([1, 2, 3, 2, 2, 4, 5], 2)); // Output: 3
+
+        // 7. Sort the array of 0s, 1s, and 2s
+        function sort012(arr) {
+            return arr.sort((a, b) => a - b);
+        }
+        console.log(sort012([0, 1, 2, 1, 0, 2])); // Output: [0, 0, 1, 1, 2, 2]
+
+        // 8. Subarray with given sum
+        function subarrayWithSum(arr, sum) {
+            for (let i = 0; i < arr.length; i++) {
+                let currentSum = 0;
+                for (let j = i; j < arr.length; j++) {
+                    currentSum += arr[j];
+                    if (currentSum === sum) return arr.slice(i, j + 1);
+                }
+            }
+            return [];
+        }
+        console.log(subarrayWithSum([1, 2, 3, 7, 5], 12)); // Output: [2, 3, 7]
+
+        // 9. Move all the negative elements to one side of the array
+        function moveNegatives(arr) {
+            return [...arr.filter(x => x < 0), ...arr.filter(x => x >= 0)];
+        }
+        console.log(moveNegatives([1, -1, 3, 2, -7, -5, 11, 6]));
+        // Output: [-1, -7, -5, 1, 3, 2, 11, 6]
+
+        // 10. Find the Union and Intersection of the two sorted arrays
+        function unionAndIntersection(arr1, arr2) {
+            const union = [...new Set([...arr1, ...arr2])];
+            const intersection = arr1.filter(x => arr2.includes(x));
+            return { union, intersection };
+        }
+        console.log(unionAndIntersection([1, 2, 3, 4], [3, 4, 5, 6]));
+        // Output: { union: [1, 2, 3, 4, 5, 6], intersection: [3, 4] }
+
+    </script>
+</body>
+
+</html>

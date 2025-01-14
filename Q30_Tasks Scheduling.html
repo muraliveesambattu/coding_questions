@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function canScheduleTasks(numTasks, prerequisites) {
+    const inDegree = Array(numTasks).fill(0); // Track the in-degree of each task
+    const graph = Array.from({ length: numTasks }, () => []); // Adjacency list
+
+    // Build the graph and calculate in-degrees
+    for (const [task, prereq] of prerequisites) {
+        graph[prereq].push(task); // Add edge prereq -> task
+        inDegree[task]++; // Increment in-degree of the task
+    }
+
+    // Initialize a queue with all tasks having in-degree of 0
+    const queue = [];
+    for (let i = 0; i < numTasks; i++) {
+        if (inDegree[i] === 0) queue.push(i);
+    }
+
+    let scheduledTasks = 0;
+
+    // Process tasks with topological sorting
+    while (queue.length > 0) {
+        const task = queue.shift();
+        scheduledTasks++;
+
+        // Decrease in-degree of neighbors
+        for (const neighbor of graph[task]) {
+            inDegree[neighbor]--;
+            if (inDegree[neighbor] === 0) queue.push(neighbor); // Add to queue if in-degree becomes 0
+        }
+    }
+
+    // If all tasks are scheduled, return true
+    return scheduledTasks === numTasks;
+}
+
+// Example usage:
+console.log(canScheduleTasks(3, [[1, 0], [2, 1]])); // Output: true
+// Explanation: Task 0 -> Task 1 -> Task 2 is a valid schedule.
+
+console.log(canScheduleTasks(3, [[1, 0], [2, 1], [0, 2]])); // Output: false
+// Explanation: A cycle exists: Task 0 -> Task 1 -> Task 2 -> Task 0.
+
+    </script>
+</body>
+</html>

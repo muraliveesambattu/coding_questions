@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function maxArea(height) {
+            let maxArea = 0;
+            let left = 0; // Start pointer
+            let right = height.length - 1; // End pointer
+
+            while (left < right) {
+                // Calculate the area
+                const width = right - left;
+                const currentArea = Math.min(height[left], height[right]) * width;
+
+                // Update the maximum area
+                maxArea = Math.max(maxArea, currentArea);
+
+                // Move the pointer pointing to the shorter line
+                if (height[left] < height[right]) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+
+            return maxArea;
+        }
+
+        // Example usage:
+        const heights = [1, 8, 6, 2, 5, 4, 8, 3, 7];
+        console.log(maxArea(heights)); // Output: 49
+
+        const heights2 = [1, 1];
+        console.log(maxArea(heights2)); // Output: 1
+
+    </script>
+</body>
+
+</html>

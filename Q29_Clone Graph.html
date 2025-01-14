@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Node {
+            constructor(value, neighbors = []) {
+                this.value = value;
+                this.neighbors = neighbors;
+            }
+        }
+
+        function cloneGraph(node) {
+            if (!node) return null;
+
+            const visited = new Map();
+
+            function dfs(originalNode) {
+                if (visited.has(originalNode)) {
+                    return visited.get(originalNode); // Return the cloned node if already visited
+                }
+
+                // Clone the node
+                const clonedNode = new Node(originalNode.value);
+                visited.set(originalNode, clonedNode);
+
+                // Recursively clone the neighbors
+                for (const neighbor of originalNode.neighbors) {
+                    clonedNode.neighbors.push(dfs(neighbor));
+                }
+
+                return clonedNode;
+            }
+
+            return dfs(node);
+        }
+
+        // Helper function to print a graph
+        function printGraph(node) {
+            const visited = new Set();
+            const result = [];
+
+            function dfs(node) {
+                if (!node || visited.has(node.value)) return;
+
+                visited.add(node.value);
+                result.push({
+                    value: node.value,
+                    neighbors: node.neighbors.map(neighbor => neighbor.value),
+                });
+
+                for (const neighbor of node.neighbors) {
+                    dfs(neighbor);
+                }
+            }
+
+            dfs(node);
+            console.log(result);
+        }
+
+        // Example usage:
+        // Graph structure:
+        // 1 -- 2
+        // |    |
+        // 4 -- 3
+        const node1 = new Node(1);
+        const node2 = new Node(2);
+        const node3 = new Node(3);
+        const node4 = new Node(4);
+
+        node1.neighbors.push(node2, node4);
+        node2.neighbors.push(node1, node3);
+        node3.neighbors.push(node2, node4);
+        node4.neighbors.push(node1, node3);
+
+        console.log("Original graph:");
+        printGraph(node1);
+
+        const clonedGraph = cloneGraph(node1);
+        console.log("Cloned graph:");
+        printGraph(clonedGraph);
+
+    </script>
+</body>
+
+</html>

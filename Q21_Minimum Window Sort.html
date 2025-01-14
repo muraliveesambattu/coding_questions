@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function findUnsortedSubarray(nums) {
+            let left = 0;
+            let right = nums.length - 1;
+
+            // Find the first element from the left that is out of order
+            while (left < nums.length - 1 && nums[left] <= nums[left + 1]) {
+                left++;
+            }
+
+            // If the array is already sorted
+            if (left === nums.length - 1) {
+                return 0;
+            }
+
+            // Find the first element from the right that is out of order
+            while (right > 0 && nums[right] >= nums[right - 1]) {
+                right--;
+            }
+
+            // Find the min and max values in the unsorted subarray
+            let subarrayMin = Infinity;
+            let subarrayMax = -Infinity;
+            for (let i = left; i <= right; i++) {
+                subarrayMin = Math.min(subarrayMin, nums[i]);
+                subarrayMax = Math.max(subarrayMax, nums[i]);
+            }
+
+            // Extend the left boundary to include all elements greater than subarrayMin
+            while (left > 0 && nums[left - 1] > subarrayMin) {
+                left--;
+            }
+
+            // Extend the right boundary to include all elements less than subarrayMax
+            while (right < nums.length - 1 && nums[right + 1] < subarrayMax) {
+                right++;
+            }
+
+            // Return the length of the subarray
+            return right - left + 1;
+        }
+
+        // Example usage:
+        console.log(findUnsortedSubarray([2, 6, 4, 8, 10, 9, 15])); // Output: 5
+        // Explanation: Sorting subarray [6, 4, 8, 10, 9] sorts the entire array.
+
+        console.log(findUnsortedSubarray([1, 2, 3, 4])); // Output: 0
+        // Explanation: The array is already sorted.
+
+        console.log(findUnsortedSubarray([1, 3, 2, 2, 2])); // Output: 4
+
+    </script>
+</body>
+
+</html>

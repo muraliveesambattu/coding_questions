@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class TreeNode {
+    constructor(value = 0, left = null, right = null) {
+        this.value = value;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+function buildTree(preorder, inorder) {
+    if (!preorder.length || !inorder.length) return null;
+
+    // The first element of preorder is the root
+    const rootValue = preorder[0];
+    const root = new TreeNode(rootValue);
+
+    // Find the index of the root in inorder
+    const rootIndex = inorder.indexOf(rootValue);
+
+    // Split inorder array into left and right subtrees
+    const leftInorder = inorder.slice(0, rootIndex);
+    const rightInorder = inorder.slice(rootIndex + 1);
+
+    // Split preorder array into left and right subtrees
+    // Skip the first element in preorder since it's the root
+    const leftPreorder = preorder.slice(1, leftInorder.length + 1);
+    const rightPreorder = preorder.slice(leftInorder.length + 1);
+
+    // Recursively build the left and right subtrees
+    root.left = buildTree(leftPreorder, leftInorder);
+    root.right = buildTree(rightPreorder, rightInorder);
+
+    return root;
+}
+
+// Helper function to print the tree (inorder traversal)
+function printInOrder(root) {
+    if (!root) return;
+    printInOrder(root.left);
+    console.log(root.value);
+    printInOrder(root.right);
+}
+
+// Example usage:
+const preorder = [3, 9, 20, 15, 7];
+const inorder = [9, 3, 15, 20, 7];
+
+const root = buildTree(preorder, inorder);
+
+console.log("Inorder traversal of the reconstructed tree:");
+printInOrder(root);
+// Output: 9, 3, 15, 20, 7
+
+    </script>
+</body>
+</html>

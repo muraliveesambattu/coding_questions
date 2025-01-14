@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function maxUniqueSplit(s) {
+            const set = new Set(); // To keep track of unique substrings
+            let maxCount = 0;
+
+            function backtrack(start) {
+                // If we've reached the end of the string, update the max count
+                if (start === s.length) {
+                    maxCount = Math.max(maxCount, set.size);
+                    return;
+                }
+
+                // Try splitting at each possible position
+                for (let end = start + 1; end <= s.length; end++) {
+                    const substring = s.slice(start, end);
+
+                    // If the substring is unique, try adding it to the set
+                    if (!set.has(substring)) {
+                        set.add(substring); // Add substring to the set
+                        backtrack(end); // Recur with the next starting point
+                        set.delete(substring); // Backtrack by removing the substring
+                    }
+                }
+            }
+
+            backtrack(0); // Start the backtracking from index 0
+            return maxCount;
+        }
+
+        // Example usage:
+        console.log(maxUniqueSplit("ababccc")); // Output: 5
+        // Explanation: One possible split is ["a", "b", "ab", "c", "cc"]
+
+        console.log(maxUniqueSplit("aba")); // Output: 2
+        // Explanation: One possible split is ["a", "ba"]
+
+        console.log(maxUniqueSplit("aa")); // Output: 1
+        // Explanation: Only one unique substring ["aa"]
+
+    </script>
+</body>
+
+</html>

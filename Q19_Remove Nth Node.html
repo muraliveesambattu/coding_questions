@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class ListNode {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        function removeNthFromEnd(head, n) {
+            const dummy = new ListNode(0); // Dummy node to handle edge cases
+            dummy.next = head;
+            let slow = dummy; // Slow pointer
+            let fast = dummy; // Fast pointer
+
+            // Move the fast pointer n + 1 steps ahead
+            for (let i = 0; i <= n; i++) {
+                fast = fast.next;
+            }
+
+            // Move both pointers until the fast pointer reaches the end
+            while (fast !== null) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+
+            // Slow pointer is now before the node to be removed
+            slow.next = slow.next.next;
+
+            return dummy.next; // Return the modified list
+        }
+
+        // Helper function to print the linked list
+        function printLinkedList(head) {
+            let current = head;
+            const result = [];
+            while (current !== null) {
+                result.push(current.value);
+                current = current.next;
+            }
+            console.log(result.join(" -> "));
+        }
+
+        // Example usage:
+        // Create a linked list: 1 -> 2 -> 3 -> 4 -> 5
+        let head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+
+        console.log("Original List:");
+        printLinkedList(head);
+
+        // Remove the 2nd node from the end
+        head = removeNthFromEnd(head, 2);
+
+        console.log("Modified List:");
+        printLinkedList(head);
+
+    </script>
+</body>
+
+</html>
